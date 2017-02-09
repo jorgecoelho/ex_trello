@@ -236,6 +236,23 @@ defmodule ExTrello do
   defdelegate board_cards(board_or_id, options), to: ExTrello.API.Boards, as: :cards
 
   @doc """
+  Fetch labels  associated to %ExTrello.Model.Board{} or board id. See reference for detailed list of options.
+
+  ## Examples
+
+      # Using a board_id
+      {:ok, labels} = ExTrello.board_labels("57663306e4b15193fcc97483", limit: 100)
+
+
+  ## Reference
+  https://developers.trello.com/advanced-reference/board#get-1-boards-board-id-labels
+  """
+
+  @spec board_labels(String.t | ExTrello.Model.Board.t, Keyword.t) :: {:ok, [ExTrello.Model.Label.t]} | {:error, ExTrello.Error.t} | {:connection_error, ExTrello.ConnectionError.t}
+  defdelegate board_labels(board_or_id, options), to: ExTrello.API.Boards, as: :labels
+
+
+  @doc """
   Fetch card associated with given id or shortlink.
 
   ## Examples
