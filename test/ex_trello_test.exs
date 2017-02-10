@@ -192,17 +192,18 @@ defmodule ExTrelloTest do
 
   end
 
+
   describe "Fetching labels from Trello" do
+
     test "fetches labels from board with specified id" do
       use_cassette "get_board_labels" do
         {:ok, labels} = ExTrello.board_labels("57fb9dfd566ee0dbedbc100b", [])
-
         for label <- labels do
           assert match?(%Label{}, label)
         end
-
       end
     end
+    
   end
 
 

@@ -49,7 +49,6 @@ defmodule ExTrello.API.Boards do
 
   # Board labels
   def labels(board), do: labels(board, [])
-  def labels(%Board{id: id}, options), do: labels(id, options)
   defapicall labels(board_id, options) when is_binary(board_id) do
     request(:get, "boards/#{board_id}/labels", options)
     |> Enum.map(&Parser.parse_label/1)
