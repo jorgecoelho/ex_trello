@@ -3,7 +3,7 @@ defmodule ExTrelloTest do
   use ExVCR.Mock
   doctest ExTrello
 
-  alias ExTrello.Model.{Action, Board, Card, Member, Organization, Checklist, Notification}
+  alias ExTrello.Model.{Action, Board, Card, Label, Member, Organization, Checklist, Notification}
   alias ExTrello.Model.List, as: TrelloList # Necessary because Elixit.List module is being used in these tests
 
   setup_all do
@@ -191,6 +191,21 @@ defmodule ExTrelloTest do
     end
 
   end
+
+  describe "Fetching labels from Trello" do
+    test "fetches labels from board with specified id" do
+      use_cassette "get_board_labels" do
+        {:ok, labels} = ExTrello.board_labels("57fb9dfd566ee0dbedbc100b", [])
+
+        for label <- labels do
+          assert match?(%Label{}, label)
+        end
+
+      end
+    end
+  end
+
+
 
   describe "Fetching cards from Trello" do
 
